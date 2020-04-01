@@ -51,7 +51,7 @@ const app = new Vue({
     results: [],
     db_D_loaded: false,
     db_BS_loaded: false,
-    showd: false,
+    showd: true,
     has_result: true
   },
   methods: {
