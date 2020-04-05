@@ -2,11 +2,12 @@ let xhr_BS = new XMLHttpRequest();
 let xhr_D = new XMLHttpRequest();
 let db_BS;
 let db_D;
+let SQL;
 
 xhr_D.open("GET", "titles_D.db", true);
 xhr_D.responseType = "arraybuffer";
 
-xhr_D.onload = function(e) {
+xhr_D.onload = function (e) {
   let uInt8Array = new Uint8Array(this.response);
   db_D = new SQL.Database(uInt8Array);
   app.db_D_loaded = true;
@@ -14,12 +15,13 @@ xhr_D.onload = function(e) {
 
   console.log(contents);
 };
-xhr_D.send();
+
+// xhr_D.send();
 
 xhr_BS.open("GET", "titles_BS.db", true);
 xhr_BS.responseType = "arraybuffer";
 
-xhr_BS.onload = function(e) {
+xhr_BS.onload = function (e) {
   let uInt8Array = new Uint8Array(this.response);
   db_BS = new SQL.Database(uInt8Array);
   app.db_BS_loaded = true;
@@ -27,7 +29,16 @@ xhr_BS.onload = function(e) {
 
   console.log(contents);
 };
-xhr_BS.send();
+// xhr_BS.send();
+
+initSqlJs({ locateFile: (filename) => `/js/${filename}` }).then(function (
+  loadSQL
+) {
+  console.log("sql loaded");
+  SQL = loadSQL;
+  xhr_D.send();
+  xhr_BS.send();
+});
 
 // setTimeout(function() {
 //   let search = db.exec("SELECT * FROM 'titles' where title like '%iphone%'");
@@ -52,7 +63,7 @@ const app = new Vue({
     db_D_loaded: false,
     db_BS_loaded: false,
     showd: true,
-    has_result: true
+    has_result: true,
   },
   methods: {
     changeColor(resultsList, keywordslist) {
@@ -117,9 +128,9 @@ const app = new Vue({
       } else {
         this.has_result = false;
       }
-    }
+    },
   },
-  created: function() {
+  created: function () {
     this.keywordslist =
       this.keywords.length == 0 ? [] : this.keywords.trim().split(" ");
   },
@@ -137,7 +148,7 @@ const app = new Vue({
       } else {
         return "BS版索引未加载,请稍后";
       }
-    }
+    },
   },
 
   watch: {
@@ -145,8 +156,8 @@ const app = new Vue({
       this.has_result = true;
       this.keywordslist =
         this.keywords.length == 0 ? [] : this.keywords.trim().split(" ");
-    }
-  }
+    },
+  },
 });
 
 // make showd true after 1 minutes
