@@ -31,7 +31,7 @@ xhr_BS.onload = function (e) {
 };
 // xhr_BS.send();
 
-initSqlJs({ locateFile: (filename) => `/js/${filename}` }).then(function (
+initSqlJs({ locateFile: (filename) => `js/${filename}` }).then(function (
   loadSQL
 ) {
   console.log("sql loaded");
