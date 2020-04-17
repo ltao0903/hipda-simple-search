@@ -160,7 +160,16 @@ const app = new Vue({
   },
 });
 
-// make showd true after 1 minutes
+// // make showd true after 1 minutes
+// setTimeout(() => {
+//   app.showd = true;
+// }, 60000);
+
+// redirect to gitee if speed is slow
 setTimeout(() => {
-  app.showd = true;
-}, 60000);
+  is_hipda_xyz = window.location.href.includes("hipda.xyz");
+  // console.log(is_hipda_xyz, app.db_BS_loaded);
+  if (is_hipda_xyz && !app.db_BS_loaded) {
+    window.location.href = "https://fqxufo.gitee.io/hipda-simple-search/";
+  }
+}, 30000);
