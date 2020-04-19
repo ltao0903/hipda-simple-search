@@ -172,4 +172,12 @@ setTimeout(() => {
   if (is_hipda_xyz && !app.db_BS_loaded) {
     window.location.href = "https://fqxufo.gitee.io/hipda-simple-search/";
   }
-}, 30000);
+}, 25000);
+
+setTimeout(() => {
+  is_hipda_xyz = window.location.href.includes("hipda.xyz");
+  // console.log(is_hipda_xyz, app.db_BS_loaded);
+  if (is_hipda_xyz && !app.db_D_loaded) {
+    window.location.href = "https://fqxufo.gitee.io/hipda-simple-search/";
+  }
+}, 45000);
